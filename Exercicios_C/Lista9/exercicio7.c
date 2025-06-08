@@ -6,47 +6,55 @@ função void (procedimento) para realizar a troca e uma função para realizar 
 da frase trocada. A função deve ter como parâmetro um ponteiro char referente ao vetor.
 */
 
-#include<stdio.h>
-#define TAM_STR 100
+#include <stdio.h>
 
 void lerString(char *str){
-    printf("Digite a sua mensagem: \n");
-    scanf("%[^\n]" , str);
+    printf("Digite uma mensagem: ");
+    scanf("%s", str);
 }
 
 void imprimirString(char *str){
-    printf("%s" , str);
+    printf("Mensagem digitada: %s\n", str);
 }
 
-void imprimirMensagemTrocandoVogais(char *str){
-    char strTrocada[TAM_STR];
-
-    for (int i = 0; str[i] != '\0'; i++){
-        strTrocada[i] = str[i]; 
+int contarCaracteres(char *str){
+    int cont = 0;
+    while(*str != '\0'){
+        cont++;
+        str++;
     }
 
-    for (int i = 0; strTrocada[i] != '\0'; i++){
-        if(strTrocada[i] == 'a'){
-            strTrocada[i] = 'u';
-        } else if(strTrocada[i] == 'e'){
-            strTrocada[i] = 'o';
-        } else if(strTrocada[i] == 'i'){
-            strTrocada[i] = 'u';
-        } else if(strTrocada[i] == 'o'){
-            strTrocada[i] = 'a';
-        } else if(strTrocada[i] == 'u'){
-            strTrocada[i] = 'e';
-        }
+    return cont;
+}
+
+void imprimirMensagemCaracteresTrocados(char *str, int tam){
+    char strTrocada[tam];
+
+    for(int i = 0; i < tam; i++){
+        strTrocada[i] = *(str + i);
+    }
+
+    for(int i = 0; i < tam; i++){
+        if(*(str + i) == 'a') strTrocada[i] = 'u';
+        else if(*(str + i) == 'e') strTrocada[i] = 'o';
+        else if(*(str + i) == 'i') strTrocada[i] = 'u';
+        else if(*(str + i) == 'o') strTrocada[i] = 'a';
+        else if(*(str + i) == 'u') strTrocada[i] = 'e';
     }
 
     imprimirString(strTrocada);
 }
 
 int main(){
-    char str[TAM_STR];
+    char str[100];
+    int tamStr;
 
     lerString(str);
-    imprimirMensagemTrocandoVogais(str);
+    imprimirString(str);
+
+    tamStr = contarCaracteres(str);
+
+    imprimirMensagemCaracteresTrocados(str, tamStr);
 
     return 0;
 }
