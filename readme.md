@@ -1,1 +1,30 @@
-Olá este projeto tem como objetivo apresentar tudo o que tenho aprendido na disciplina de AEDS1 (Algoritmos e Estrutura de Dados) na faculdade. Ele reúne diversas listas de exercícios voltadas para a prática de um código limpo e bem estruturado, com foco tanto no aperfeiçoamento das habilidades de programação quanto no aprofundamento do aprendizado.
+# 📚 Projetos de AEDs I e II  
+
+Este repositório reúne meus projetos desenvolvidos ao longo das disciplinas de **Algoritmos e Estruturas de Dados I e II**.  
+
+O objetivo é documentar a evolução dos estudos em lógica de programação, análise de complexidade e implementação de estruturas de dados fundamentais.  
+
+---
+
+## 🔎 Conteúdo  
+
+### AEDs I  
+- Algoritmos de ordenação  
+- Busca linear e binária  
+- Recursividade  
+- Manipulação de vetores e matrizes  
+
+### AEDs II  
+- Listas encadeadas  
+- Pilhas e filas  
+- Árvores binárias e balanceadas  
+- Grafos e algoritmos de percurso  
+- Análise de complexidade  
+
+---
+
+## 🎯 Objetivo  
+Servir como base de estudo e consulta para futuras implementações, além de compartilhar conhecimento com outros estudantes de Ciência da Computação.  
+
+## 📌 Observação  
+Este repositório é voltado para fins acadêmicos e de aprendizado. Sugestões e contribuições são sempre bem-vindas! 🚀
