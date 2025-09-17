@@ -34,5 +34,6 @@ public class ciframento {
 
             linha = sc.nextLine();
         }
+        sc.close();
     }
 }
