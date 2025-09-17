@@ -29,5 +29,6 @@ public class inversaoString {
 
             linha = sc.nextLine();
         }
+        sc.close();
     }
 }
