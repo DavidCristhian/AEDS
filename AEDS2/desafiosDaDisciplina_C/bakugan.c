@@ -39,7 +39,6 @@ int main(){
             }
             if(countMark == 3){
                 pontuacaoMark += 30; // bônus
-                countMark = 1; // reinicia
             }
             pontuacaoMark += rMI[i];
 
@@ -51,9 +50,16 @@ int main(){
             }
             if(countLeti == 3){
                 pontuacaoLeti += 30; // bônus
-                countLeti = 1;
             }
             pontuacaoLeti += rLI[i];
+
+            if(countMark == 3 && countLeti == 3){
+                pontuacaoMark -= 30;
+                pontuacaoLeti -= 30;
+
+                countMark = 1; // reinicia contagem
+                countLeti = 1;
+            };
         }
 
         // Resultado final
