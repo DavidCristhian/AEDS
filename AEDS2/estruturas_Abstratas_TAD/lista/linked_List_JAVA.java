@@ -1,3 +1,5 @@
+package AEDS.AEDS2.estruturas_Abstratas_TAD.lista;
+
 class No {
     int valor; // Armazena o valor contido no nó (neste caso, um número inteiro)
     No proximo; // Uma referência (ponteiro) para o próximo nó na sequência
