@@ -1,95 +1,138 @@
 #include <stdio.h>
 #include <stdlib.h>
 
-// Define a estrutura de um nó (elemento) da pilha
-// 'typedef' cria um novo tipo chamado 'No', sinônimo de 'struct No'
-typedef struct No {
-    // 'dado' armazena o valor contido no nó (neste caso, um número inteiro)
-    int dado;
-    // 'prox' é um ponteiro para o próximo nó na sequência
-    struct No* prox;
+typedef struct No{
+    int dado; // Valor do nó
+    No* prox; // Apontamento do nó
 } No;
 
-// Função para adicionar um novo elemento no topo da pilha (operação push)
-// Recebe um ponteiro para o ponteiro 'topo' para que possa ser atualizado
-void push(No** topo, int valor) {
-    // Aloca dinamicamente memória para um novo nó
-    No* novo = (No*) malloc(sizeof(No));
-    
-    // Verifica se a alocação de memória foi bem-sucedida
-    if (!novo) {
-        printf("Erro de alocação!\n");
-        // Em caso de erro, encerra o programa
+typedef struct Pilha{
+    No *topo;
+} Pilha;
+
+void inicializador(Pilha *p){
+    p->topo = NULL; // Inicializando a estrutura apontando para NULL
+}
+
+int estaVazia(Pilha *p){
+    return p->topo == NULL; // Retorna o teste se o topo da pilha aponta para NULL
+}
+
+void push(Pilha *p, int valor){ 
+    No *novo = (No *) malloc(sizeof(No)); // Alocando um novo espaço para o novo nó
+
+    if(novo == NULL){ // Validação se foi criado o nó corretamente
+        printf("Erro de alocação\n");
         exit(1);
     }
-    
-    // Atribui o valor passado como parâmetro ao campo 'dado' do novo nó
-    novo->dado = valor;
-    // O ponteiro 'prox' do novo nó aponta para o nó que era o topo da pilha
-    novo->prox = *topo;
-    // O novo nó se torna o novo topo da pilha, ou seja, a cabeça da lista encadeada
-    *topo = novo;
+
+    novo->dado = valor; // Recebe o valor do parâmetro
+    novo->prox = p->topo; // Aponta para o antigo topo
+    p->topo = novo; // O topo se aponta para o novo nó
 }
 
-// Função para remover o elemento do topo da pilha (operação pop)
-// Recebe um ponteiro para o ponteiro 'topo' para que possa ser atualizado
-void pop(No** topo) {
-    // Se a pilha estiver vazia (*topo é NULL), não há o que remover
-    if (*topo == NULL) {
-        printf("Pilha vazia!\n");
+void pop(Pilha *p){
+    if(estavazia(p)){
+        printf("Erro: Pilha vazia\n");
+        return;
+    } else{
+
+    }
+
+    No* temp = p->topo; // Cria um nó para receber os campos do nó que está no topo
+    int valor = temp->dado; // Cria uma variável para reber o dado do temp
+    p->topo = temp->prox; // O topo agora aponta para o penúltimo nó
+    
+    free(temp); // Retira da memória o espaço do último nó
+    return valor; 
+}
+
+int topo(Pilha *p){
+    if(estaVazia(p)){
+        printf("Erro: Pilha vazia\n");
+        return -1;
+    } else{
+        return p->topo->dado;
+    }
+}
+
+void mostrarPilha(Pilha *p) {
+    if (p->topo == NULL) {
+        printf("A pilha está vazia.\n");
         return;
     }
-    
-    // Cria um ponteiro temporário para armazenar o nó que será removido
-    No* temp = *topo;
-    
-    // Atualiza o ponteiro 'topo' para apontar para o próximo nó,
-    // efetivamente removendo o nó atual do topo
-    *topo = (*topo)->prox;
-    
-    // Libera a memória alocada para o nó removido
-    free(temp);
-}
 
-// Função para exibir todos os elementos da pilha, do topo para a base
-// Recebe uma cópia do ponteiro 'topo' para percorrer a lista sem modificá-la
-void exibirPilha(No* topo) {
-    printf("Pilha (topo -> base): ");
-    
-    // Percorre a pilha a partir do topo até chegar ao final (NULL)
-    while (topo != NULL) {
-        // Imprime o valor do nó atual
-        printf("%d ", topo->dado);
-        // Avança para o próximo nó
-        topo = topo->prox;
+    printf("Elementos da pilha (do topo para a base):\n");
+
+    No *atual = p->topo;
+    while (atual != NULL) {
+        printf("%d\n", atual->valor);
+        atual = atual->prox; // vai para o próximo nó
     }
-    
-    // Adiciona uma nova linha após exibir todos os elementos
-    printf("\n");
+}  
+
+void somaElementosPilha(Pilha *p){
+    if(estaVazia()) { printf("Pilha vazia1\n"); }
+    No *atual = p->topo;
+    int soma = 0;
+
+    while(atual != NULL){
+        soma = atual->dado;
+        atual = atual->prox;
+    }
+    return soma;
 }
 
-// Função principal do programa
-int main() {
-    // Declara um ponteiro para o topo da pilha e o inicializa como NULL (pilha vazia)
-    No* pilha = NULL;
+int maiorElemento(Pilha *P){
+    if(P->topo == NULL) return 0;
 
-    // Adiciona elementos (empilha):
-    // 10 é o primeiro a entrar, indo para a base da pilha
-    // 20 entra depois, fica acima do 10
-    // 30 entra por último, fica no topo da pilha
-    push(&pilha, 10);
-    push(&pilha, 20);
-    push(&pilha, 30);
-    
-    // Exibe a pilha, mostrando o elemento mais recente primeiro: 30 20 10
-    exibirPilha(pilha);
+    No *aux = P->topo;
+    int maior = P->dado;
 
-    // Remove o elemento do topo (desempilha). O 30 é removido
-    pop(&pilha);
-    
-    // Exibe a pilha após a remoção: 20 10
-    exibirPilha(pilha);
+    aux = aux->prox;
+    while(aux != NULL){
+        if(aux->dado > maior){ maior = aux->dado; }
+        aux = aux->prox;
+    }
 
-    // Retorna 0 para indicar que o programa foi executado com sucesso
-    return 0;
+    return maior;
+}
+
+int somaElementosRecAuxiliar(No *aux){
+    if(aux == NULL){
+        return 0;
+    }
+    return aux->dado += somaElementosRecAuxiliar(aux->prox);
+}
+
+int somaElementosRec(Pilha *P){
+    return somaElementosRecAuxiliar(P->topo);
+}
+
+int maiorElementoRecAuxiliar(No *aux, int maior){
+    if(aux == NULL) { return maior };
+    if(aux->dado > maior) { maior = aux->dado; }
+    return maiorElementoRecAuxiliar(aux->prox, maior);
+}
+
+int maiorElementoRec(Pilha *P){
+    No *aux = P->topo;
+    int maior = aux.dado;
+    return maiorElementoRecAuxiliar(aux, maior);
+}
+
+
+int main(){
+    Pilha p;
+    inicializar(&p);
+    push(&p, 10);
+    push(&p, 20);
+    push(&p, 30);
+
+
+    printf("Topo: %d\n", topo(&p));
+    printf("Removido: %d\n", pop(&p));
+    printf("Novo topo: %d\n", topo(&p));
+
+    return 0/
 }
