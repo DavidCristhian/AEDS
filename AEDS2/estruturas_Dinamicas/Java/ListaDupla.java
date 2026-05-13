@@ -1,5 +1,7 @@
 package Java;
 
+import AEDS.AEDS2.estruturas_Dinamicas.Java.NoDuplo;
+
 public class ListaDupla {
     public NoDuplo primeiro;
     public NoDuplo ultimo;
@@ -142,4 +144,21 @@ public class ListaDupla {
 
         return resp;
     }
+
+    // Metodo de ordenaçao Inserçao
+    public void insercao() {
+    // Começamos do segundo elemento (primeiro.prox.prox)
+    for (NoDuplo i = primeiro.prox.prox; i != null; i = i.prox) {
+        int tmp = i.elemento;
+        NoDuplo j = i.ant;
+
+        // Enquanto o valor for menor que os anteriores, "arrasta" o valor para a frente
+        // O j != primeiro serve para não ultrapassar a célula cabeça
+        while (j != primeiro && j.elemento > tmp) {
+            j.prox.elemento = j.elemento;
+            j = j.ant;
+        }
+        j.prox.elemento = tmp;
+    }
+}
 }
